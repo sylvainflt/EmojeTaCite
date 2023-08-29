@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>EmojeTaCite</title>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    <script type="module" src="./main.min.js"></script>
+</head>
+<body>    
+    <h1>EmojeTaCite</h1>
+    <h2 class="uyc">Just play with it !</h2>
+    
+    <div class="monSite">        
+        <div id="quoteBloc">
+            <div id="selectionCategory">
+                <select id="quoteCategory">
+                    <option value="">all</option>
+                    <option value="amazing">amazing</option>
+                    <option value="faith">faith</option>
+                    <option value="great">great</option>
+                    <option value="learning">learning</option>
+                    <option value="life">life</option>
+                    <option value="love">love</option>
+                </select>
+                <button id="quoteBtn">Quote</button>
+            </div>   
+            <div id="quoteLoader" class="center"></div>            
+            <div id="quoteContent">  
+                <h2>Quote : </h2>                                           
+                <div class="quote" id="quote">
+                    <div id="quoteLine"></div>
+                    <div id="quoteAuthorDiv">- <a id="quoteAuthor"></a></div>
+                    <button id="commentBtn">comment</button>
+                    <span id="authorCommentSpan"></span><table id="emojis"></table>                    
+                </div>
+            </div>
+            <div id="commandLine"><button id="changePseudoBtn">change pseudo</button><button id="sendBtn">send</button></div>
+        </div>
+        <div id="emojiBloc">            
+            <div>
+                <select id="emojiGroupSelect">
+                    <option value="smileys_emotion">smileys_emotion</option>
+                    <option value="people_body">people_body</option>
+                    <option value="component">component</option>
+                    <option value="animals_nature">animals_nature</option>
+                    <option value="food_drink">food_drink</option>
+                    <option value="travel_places">travel_places</option>
+                    <option value="activities">activities</option>
+                    <option value="objects">objects</option>
+                    <option value="symbols">symbols</option>
+                    <option value="flags">flags</option>
+                    
+                </select>                
+            </div> 
+            <div>
+                <table id="emojiList"></table>
+                <button id="precEmojiGroupBtn">précédent</button>
+                <button id="nextEmojiGroupBtn">suite</button>
+            </div>
+            
+        </div>
+        
+    </div>
+</body>
+</html>
