@@ -1,5 +1,6 @@
 import "./main.scss"
-import html2canvas from 'html2canvas';
+import html2canvas from 'html2canvas'
+import { recherchePersonnage, appelsWikiQuote } from "./wikiquoteAPI.js" 
 
 // une variable qui stocke l'offset des emojiGroups pour pagination
 let emojiGroupsOffset = 0
@@ -18,8 +19,6 @@ function getQuoteBackground(){
 
 function getQuoteContent() {
   
-  console.log("getQuoteContent()")
-
   document.querySelector("#quoteContent").style.visibility = "hidden";
   document.querySelector("#quoteLoader").style.display = "inline";
 
@@ -28,6 +27,8 @@ function getQuoteContent() {
     category = "?category="+category
   }
 
+  appelsWikiQuote()
+  /*
   fetch("https://api.api-ninjas.com/v1/quotes"+category, { headers: {"X-Api-Key":"2Dst7djyWZH/iSyUenkgOw==rRyQbQZw2NyxaWI3"}})
   .then(response => {
     if(response.status === 200) return response.text()
@@ -54,7 +55,7 @@ function getQuoteContent() {
     document.querySelector("#quoteLoader").style.display = "none";
     document.querySelector("#quoteContent").style.visibility = "visible";
     document.querySelector("#quoteContent").innerHTML = "Erreur de chargement. Rééssayer plus tard."
-  })
+  })*/
   
 }
 
@@ -174,6 +175,10 @@ function emojiGroupSelectChange() {
 document.addEventListener('DOMContentLoaded', getQuote)
 
 quoteBtn.addEventListener('click', getQuote)
+quoteSearch.addEventListener('click', function (){
+  const search = prompt("Rechercher un personnage (commencez par le prénom) ou un film : ")
+  recherchePersonnage(search)
+})
 
 function setPseudo(){
   // on demande le pseudo de l'utilisateur
@@ -197,6 +202,11 @@ nextEmojiGroupBtn.addEventListener('click', getNextEmojiGroup)
 changePseudoBtn.addEventListener('click', function (){
   setPseudo()
 })
+
+closeModalResultResearch.onclick = function () {
+  resultResearch.style.display = "none"
+  statusResults.innerHTML = "Resultats :"
+}
 
 /**
  * EventListener sur le bouton d'envoi d'e-mail
