@@ -71,7 +71,12 @@ body {
             }
             #quoteBtn, #quoteSearch {
                 margin: 0 0 1rem 1rem;
-            }            
+            }   
+            #quote {
+                @media screen and (max-device-width: 800px) {
+                    padding-top: 1rem;      
+                }                
+            }         
             #quoteLine {
                 font-size: 2rem;
             }
@@ -159,7 +164,15 @@ body {
                 margin-right: 1rem;
             }
         }
-     
+        .clickable {
+            width: 3rem;
+            height: 3rem;
+
+            @media screen and (max-device-width: 800px) {
+                width: 6rem;
+                height: 6rem;
+            }
+        }
         .clickable:hover {
             background-color: rgba(128, 128, 128, .8);
             cursor: pointer;
@@ -172,6 +185,12 @@ body {
             cursor: pointer;
             font-size: 4rem;
         }
+    }
+
+    @media screen and (max-device-width: 800px) {
+        input, select, button {
+            font-size: 2rem;
+        }               
     }
 
     #sendEmail {
