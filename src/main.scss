@@ -62,19 +62,38 @@ body {
             padding: 3rem;
             position: relative;
 
-            #quoteBtn {
-                margin-bottom: 1rem;
+            @media screen and (max-device-width: 800px) {
+                width: 80%;        
             }
+
+            #quoteContent {
+                font-size: 3rem;
+            }
+            #quoteBtn, #quoteSearch {
+                margin: 0 0 1rem 1rem;
+            }            
             #quoteLine {
                 font-size: 2rem;
             }
             #quoteAuthorDiv {
                 text-align: end;
                 font-size: 1.5rem;
-                padding: 2rem;
+                padding: 2rem 2rem 0 2rem;
+                position: relative;            
+            }
+            #imageAuthor {
+                visibility: hidden;
+                position: absolute;
+                right: 0;
+            }
+            #quoteAuthor:hover + #imageAuthor {
+                visibility: visible;
             }
             #commandLine {
                 display: none;
+                margin-top: 2rem;
+                gap: 1rem;
+                justify-content: flex-end;
             }            
 
             #quoteLoader {
@@ -107,6 +126,9 @@ body {
                 padding-left: 4rem;
                 display: flex;
                 align-items: center;
+                @media screen and (max-device-width: 800px) {
+                    font-size: 4rem;       
+                }
             }
         
         }
@@ -115,21 +137,26 @@ body {
             background-color: #f3f3f3;
             border-radius: 5px;
             padding: 3rem;
-            display: flex;
+            display: none;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            gap: 2rem;
 
             @media screen and (max-device-width: 800px) {
-                width: 50%;
+                width: 80%;
             }
 
             #emojiList {
                 font-size: 2rem;
+                @media screen and (max-device-width: 800px) {
+                    font-size: 4rem;       
+                }
             }
             
             #precEmojiGroupBtn {
                 display: none;
+                margin-right: 1rem;
             }
         }
      
@@ -139,15 +166,15 @@ body {
             border-radius: 3px;
         }
         .clickableBigger{
-            transition: all .5s;
+            transition: all .2s;
         }
         .clickableBigger:hover {
             cursor: pointer;
-            font-size: 3rem;
+            font-size: 4rem;
         }
     }
 
-    #resultResearch {
+    #sendEmail {
         display: none; /* Hidden by default */
         position: fixed; /* Stay in place */
         z-index: 1; /* Sit on top */
@@ -166,9 +193,42 @@ body {
         margin: auto;
         padding: 5rem;
         border: 1px solid #888;
-        width: 50%;
-        font-size: 3rem;
+        min-width: 30%;
+        font-size: 2rem;
+        border-radius: 5px;
+
+        #paramResearchDiv {
+            margin: 0 0 1rem 3rem;            
+        }
     }
+    
+    /* The Close Button */
+    #closeModalSendEmail {
+        color: #aaaaaa;
+        float: right;
+        font-weight: bold;
+    }
+    
+    #closeModalSendEmail:hover,
+    #closeModalSendEmail:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    #resultResearch {
+        display: none; /* Hidden by default */
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Sit on top */
+        /*padding-top: 100px; /* Location of the box */
+        left: 0;
+        top: 0;
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        overflow: auto; /* Enable scroll if needed */
+        background-color: rgb(0,0,0); /* Fallback color */
+        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    }   
     
     /* The Close Button */
     #closeModalResultResearch {
@@ -182,5 +242,14 @@ body {
         color: #000;
         text-decoration: none;
         cursor: pointer;
+    }
+
+    #statusResults div:hover {
+        cursor: pointer;
+        background-color: #aaaaaa;
+    }
+
+    .elementResult {
+        padding-left: 3rem;
     }
 }

@@ -23,10 +23,10 @@
             </div>   
             <div id="quoteLoader" class="center"></div>            
             <div id="quoteContent">  
-                <h2>Citation : </h2>                                           
+                                                         
                 <div class="quote" id="quote">
                     <div id="quoteLine"></div>
-                    <div id="quoteAuthorDiv">- <a id="quoteAuthor"></a></div>
+                    <div id="quoteAuthorDiv">- <a id="quoteAuthor"></a><div id="imageAuthor"></div></div>
                     <button id="commentBtn">Commenter</button>
                     <span id="authorCommentSpan"></span><table id="emojis"></table>                    
                 </div>
@@ -37,20 +37,22 @@
             <div>
                 <select id="emojiGroupSelect">
                     <option value="smileys_emotion">smileys_emotion</option>
-                    <option value="people_body">people_body</option>
-                    <option value="component">component</option>
-                    <option value="animals_nature">animals_nature</option>
-                    <option value="food_drink">food_drink</option>
-                    <option value="travel_places">travel_places</option>
-                    <option value="activities">activities</option>
-                    <option value="objects">objects</option>
-                    <option value="symbols">symbols</option>
-                    <option value="flags">flags</option>
+                    <option value="people_body">gens_corps</option>
+                    <option value="component">composant</option>
+                    <option value="animals_nature">animaux_nature</option>
+                    <option value="food_drink">nourriture_boisson</option>
+                    <option value="travel_places">voyage_lieux</option>
+                    <option value="activities">activites</option>
+                    <option value="objects">objets</option>
+                    <option value="symbols">symboles</option>
+                    <option value="flags">drapeaux</option>
                     
                 </select>                
             </div> 
             <div>
                 <table id="emojiList"></table>
+            </div>
+            <div>    
                 <button id="precEmojiGroupBtn">Précédent</button>
                 <button id="nextEmojiGroupBtn">Suite</button>
             </div>
@@ -58,13 +60,26 @@
         </div>
         
     </div>
+    <div id="sendEmail">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span id="closeModalSendEmail">&times;</span>
+            <p id="statusSendEmail">Sending e-mail ...</p>
+            
+        </div>
+    </div>
     <div id="resultResearch">
         <!-- Modal content -->
         <div class="modal-content">
             <span id="closeModalResultResearch">&times;</span>
-            <div id="statusResults">Resultats :</div>
+            <div id="paramResearchDiv">
+                <input type="text" id="inputResearch">
+                <button id="researchBtn">Rechercher</button>
+            </div>
+            <div id="statusResults"></div>
             
         </div>
     </div>
+    <div id="infobox"></div>
 </body>
 </html>

@@ -1,4 +1,5 @@
 import { parse } from 'node-html-parser';
+import { rechercheImageWikipedia } from "./wikipediaAPI.js"
 
 const language = "fr"
 
@@ -18,20 +19,27 @@ const humoristes = [
 ]
 const films = [
     "Kaamelott",
-    "Le_père_Noël_est_une_ordure",
-    "Brice_de_Nice",
-    "L%27Autre_c%27est_moi",
-    "C%27est_arrivé_près_de_chez_vous",
-    "South_Park",
-    "La_Soupe_aux_choux",
-    "La_Grande_Vadrouille",
-    "La_Folie_des_grandeurs"
+    "Le père Noël est une ordure",
+    "Brice de Nice",
+    "L'Autre c'est moi",
+    "C'est arrivé près de chez vous",
+    "South Park",
+    "La Soupe aux choux",
+    "La Grande Vadrouille",
+    "La Folie des grandeurs",
+    "Les Simpson",
+    "Les Aventures de Tintin",
+    "Le Roi lion",
+    "Les Bronzés font du ski",
+    "Les Visiteurs"
 ]
 let pieceId = 0
 let title = ""
 
 export function recherchePersonnage(personnage){
     
+    statusResults.innerHTML = ""
+
     // appel API : exemple on cherche le nom d'un comedien
     const params = `?format=json&action=opensearch&search=${personnage}`
     fetch(`https://${language}.wikiquote.org/w/api.php${params}`)
@@ -45,23 +53,21 @@ export function recherchePersonnage(personnage){
        
         //const name = parsedData[3][0].slice(30)
         //console.log(name)
-
-        resultResearch.style.display = "flex"
+        
         //statusResults.innerHTML = parsedData[1][0]
         parsedData[1].forEach((element, index) => {
             const id = index + element.replace(/\s/g, '')
             //console.log(id)
             const newElementResult = document.createElement("div")
             newElementResult.id = id
+            newElementResult.className = "elementResult"
             newElementResult.innerHTML = element
             statusResults.appendChild(newElementResult)
             // mettre un id sur la div, suivi d'un eventlistener
             newElementResult.addEventListener('click', function(){
                 appelsWikiQuote(element)
-                resultResearch.style.display = "none"
-                statusResults.innerHTML = "Resultats :"
+                resultResearch.style.display = "none"                
             })
-            // mettre un hover pour surligner lors du survol
         })
         //appelsWikiQuote(name)
 
@@ -72,7 +78,7 @@ export function recherchePersonnage(personnage){
     })
 }
 
-export function appelsWikiQuote(name = films[Math.floor(Math.random()*films.length)]){
+export function appelsWikiQuote(name = humoristes[Math.floor(Math.random()*humoristes.length)]){
 
     console.log("appelsWikiQuote()")
     //title = films[Math.floor(Math.random()*films.length)]
@@ -111,6 +117,8 @@ export function appelsWikiQuote(name = films[Math.floor(Math.random()*films.leng
         })
         .then(data => { 
             
+            document.querySelector("#emojis").innerHTML = ""
+
             const parsedData = JSON.parse(data)
             //console.log(parsedData)     
 
@@ -127,8 +135,21 @@ export function appelsWikiQuote(name = films[Math.floor(Math.random()*films.leng
             //console.log(quote?.childNodes[0]?._rawText?.length)
             //if(quote?.childNodes[0]?._rawText?.length <= 180){
                 document.querySelector("#quoteLine").innerHTML = quote
-                document.querySelector("#quoteAuthor").innerHTML = title
+                //document.querySelector("#quoteAuthor").innerHTML = title
+                quoteAuthor.href = `https://fr.wikipedia.org/wiki/${title}`
+                quoteAuthor.innerHTML = title
+                quoteAuthor.target = "_blank"
+
+                // test ajout d'une image wikipedia en title
+                rechercheImageWikipedia(title).then((image)=>{
+                    const imageWikipedia = image
+                    console.log("imageWikipedia "+imageWikipedia)
+                    document.querySelector('#imageAuthor').innerHTML = imageWikipedia
+                })
+                            
                 
+                
+
                 document.querySelector("#quoteLoader").style.display = "none";
                 document.querySelector("#quoteContent").style.visibility = "visible";
             /*}else {
