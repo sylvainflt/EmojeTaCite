@@ -10,12 +10,12 @@ const titles = [
 const humoristes = [
     "Coluche",
     "Dieudonné",
-    "Pierre_Desproges",
-    "Chevaliers_du_fiel",
-    "Anthony_Kavanagh",
-    "Jean-Marie_Bigard",
-    "Laurent_Gerra",
-    "Patrick_Sébastien"
+    "Pierre Desproges",
+    "Chevaliers du fiel",
+    "Anthony Kavanagh",
+    "Jean-Marie Bigard",
+    "Laurent Gerra",
+    "Patrick Sébastien"
 ]
 const films = [
     "Kaamelott",

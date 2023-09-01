@@ -32,6 +32,13 @@ commentBtn.addEventListener('click', function(){
   commentBtn.style.display = "none"
   commandLine.style.display = "flex"
   emojiBloc.style.display = "flex"
+  // on refait les border radius suite à apparition du bloc Emojis
+  quoteBloc.style.borderRadius = "100px 0 0 100px"
+  // on teste la largeur de l'écran pour savoir si on est en mode mobile, si oui, alors on met le borderRadius à 100px 100px 0 0
+  console.log(screen.width)
+  if(screen.width <= 800){
+    quoteBloc.style.borderRadius = "100px 100px 0 0"
+  }
 })
 
 getEmojiContentByGroup()

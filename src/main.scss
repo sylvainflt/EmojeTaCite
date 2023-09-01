@@ -27,6 +27,7 @@ body {
         background-clip: border-box;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        text-shadow: #379eff7a 1px 0 10px;
     }
     .uyc {
         text-align: center;
@@ -38,6 +39,8 @@ body {
         background-clip: border-box;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        text-shadow: #e6f5137a 1px 0 10px;
+
     }
 
     select {
@@ -58,12 +61,13 @@ body {
 
         #quoteBloc {
             width: 50%;
-            border-radius: 5px;
+            border-radius: 100px;
             padding: 3rem;
             position: relative;
 
             @media screen and (max-device-width: 800px) {
-                width: 80%;        
+                width: 80%; 
+                border-radius: 100px;       
             }
 
             #quoteContent {
@@ -140,7 +144,7 @@ body {
 
         #emojiBloc {
             background-color: #f3f3f3;
-            border-radius: 5px;
+            border-radius: 0 100px 100px 0;
             padding: 3rem;
             display: none;
             flex-direction: column;
@@ -150,6 +154,7 @@ body {
 
             @media screen and (max-device-width: 800px) {
                 width: 80%;
+                border-radius: 0 0 100px 100px;   
             }
 
             #emojiList {
@@ -187,6 +192,34 @@ body {
         }
     }
 
+    input, select, button {
+        border-radius: 5px;
+        cursor: pointer;
+        border: solid 1px #1152a7;
+    }  
+    button {
+        position: relative;
+        transition: all .5s;
+        z-index: 1;
+    }
+    button:before {
+        background-color: #1152a7;
+        border-radius: 5px;
+        content: "";
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        transition: all .5s;
+        width: 0;
+        z-index: -1;
+    }
+    button:hover{
+        color: #fff;
+    }
+    button:hover:before {
+        width: 100%;
+    }
     @media screen and (max-device-width: 800px) {
         input, select, button {
             font-size: 2rem;

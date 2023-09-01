@@ -8,8 +8,20 @@ export function getQuote() {
     getQuoteContent()
   }
   
+  function generateColor(){
+    const hexArray = [8, 9, 'A', 'B', 'C', 'D', 'E', 'F'];
+    let code = "";
+    for(let i=0; i<6; i++){
+     code += hexArray[Math.floor(Math.random()*8)];
+    }
+    return `#${code}`
+   }
+
   function getQuoteBackground(){
-    quoteBloc.style.backgroundColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+    const color = generateColor()
+    quoteBloc.style.backgroundColor = color
+    quoteBloc.style.boxShadow = `0 0 20px ${color}, inset 0 0 10px #fff`
+    emojiBloc.style.boxShadow = `0 0 20px #f3f3f3, inset 0 0 10px #fff`
   }
   
   function getQuoteContent() {
