@@ -57,7 +57,7 @@ closeModalSendEmail.onclick = function () {
 
 closeModalResultResearch.onclick = function () {
   resultResearch.style.display = "none"
-  statusResults.innerHTML = ""
+  //statusResults.innerHTML = ""
 }
 
 /**

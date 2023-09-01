@@ -78,7 +78,7 @@ export function recherchePersonnage(personnage){
     })
 }
 
-export function appelsWikiQuote(name = humoristes[Math.floor(Math.random()*humoristes.length)]){
+export function appelsWikiQuote(name = films[Math.floor(Math.random()*films.length)]){
 
     //console.log("appelsWikiQuote()")
     //title = films[Math.floor(Math.random()*films.length)]

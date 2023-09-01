@@ -1,4 +1,6 @@
 $color: lightblue;
+$color2: #1111a1;
+$color3: #379eff7a;
 
 @font-face {
     font-family: "WinterWind";
@@ -81,6 +83,13 @@ body {
                     padding-top: 1rem;      
                 }                
             }         
+            #selectionCategory {
+                position: relative;
+            }
+            #quoteSearch {
+                position: absolute;
+                right: 0;
+            }
             #quoteLine {
                 font-size: 2rem;
             }
@@ -94,6 +103,10 @@ body {
                 visibility: hidden;
                 position: absolute;
                 right: 0;
+                z-index: 2;                
+            }
+            #imageAuthor img {
+                border-radius: 20px;
             }
             #quoteAuthor:hover + #imageAuthor {
                 visibility: visible;
@@ -132,7 +145,7 @@ body {
             #emojis {
                 font-size: 3rem;
                 height: 4rem;
-                padding-left: 4rem;
+                padding-left: 40%;
                 display: flex;
                 align-items: center;
                 @media screen and (max-device-width: 800px) {
@@ -184,7 +197,7 @@ body {
             border-radius: 3px;
         }
         .clickableBigger{
-            transition: all .2s;
+            transition: all .35s;
         }
         .clickableBigger:hover {
             cursor: pointer;
@@ -195,7 +208,10 @@ body {
     input, select, button {
         border-radius: 5px;
         cursor: pointer;
-        border: solid 1px #1152a7;
+        border: solid 1px $color2;
+        color: $color2;
+        font-size: 1rem;
+        padding: .5rem 1rem;
     }  
     button {
         position: relative;
@@ -203,7 +219,7 @@ body {
         z-index: 1;
     }
     button:before {
-        background-color: #1152a7;
+        background-color: $color2;
         border-radius: 5px;
         content: "";
         height: 100%;
@@ -248,7 +264,8 @@ body {
         min-width: 30%;
         font-size: 2rem;
         border-radius: 5px; 
-        min-height: 150px;       
+        min-height: 150px;   
+        border-radius: 20px;    
     }
     .modal-content-research {
         min-height: 440px;
@@ -300,10 +317,15 @@ body {
 
     #statusResults div:hover {
         cursor: pointer;
-        background-color: #aaaaaa;
+        background-color: $color3;
     }
 
     .elementResult {
         padding-left: 3rem;
+        border-radius: 5px;
+    }
+
+    a, a:visited, a:hover {
+        color: $color2;
     }
 }

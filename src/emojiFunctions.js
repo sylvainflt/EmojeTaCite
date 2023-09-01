@@ -65,21 +65,20 @@ export function getEmojiContentByGroup(offset = 0) {
         const tr3 = document.createElement("tr")
         const tr4 = document.createElement("tr")
         const tr5 = document.createElement("tr")
-        const tr6 = document.createElement("tr")
+        //const tr6 = document.createElement("tr")
 
         tableData.forEach((element, key) => {
-            if(key < 5)          
+            if(key < 6)          
             tr.appendChild(createEmojiTD(element, key))                               
-            else if(key < 10)        
+            else if(key < 12)        
             tr2.appendChild(createEmojiTD(element, key))        
-            else if(key < 15)
+            else if(key < 18)
             tr3.appendChild(createEmojiTD(element, key))
-            else if(key < 20)
+            else if(key < 24)
             tr4.appendChild(createEmojiTD(element, key))   
-            else if(key < 25)
-            tr5.appendChild(createEmojiTD(element, key))
             else 
-            tr6.appendChild(createEmojiTD(element, key))
+            tr5.appendChild(createEmojiTD(element, key))
+            
         })
 
         tbody.appendChild(tr)
@@ -87,7 +86,7 @@ export function getEmojiContentByGroup(offset = 0) {
         tbody.appendChild(tr3)
         tbody.appendChild(tr4)
         tbody.appendChild(tr5)
-        tbody.appendChild(tr6)
+        //tbody.appendChild(tr6)
         emojiList.appendChild(tbody)
 
         }
