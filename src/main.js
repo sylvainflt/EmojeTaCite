@@ -3,7 +3,6 @@ import html2canvas from 'html2canvas'
 import { getQuote } from "./quoteFunctions.js" 
 import { recherchePersonnage } from "./wikiquoteAPI.js" 
 import { getEmojiContentByGroup, getNextEmojiGroup, getPrecEmojiGroup, emojiGroupSelectChange } from "./emojiFunctions.js"
-import { rechercheImageWikipedia } from "./wikipediaAPI.js"
 
 // une variable qui enregistre le nom de l'utilisateur
 let user = ""
@@ -46,6 +45,7 @@ changePseudoBtn.addEventListener('click', function (){
 
 closeModalSendEmail.onclick = function () {
   sendEmail.style.display = "none"
+  statusSendEmail.innerHTML = ""
 }
 
 closeModalResultResearch.onclick = function () {
@@ -54,93 +54,99 @@ closeModalResultResearch.onclick = function () {
 }
 
 /**
- * EventListener sur le bouton d'envoi d'e-mail
+ * EventListener sur le bouton d'envoi
  */
 sendBtn.addEventListener('click', function (){
 
-  if(authorCommentSpan.innerHTML !== " says : ") {
+  if(user !== "") {
   
-    const receiver = prompt("Veuillez entrer l'adresse e-mail à qui envoyer: ")
+    //const receiver = prompt("Veuillez entrer l'adresse e-mail à qui envoyer: ")
     
     // on ouvre la modal
     sendEmail.style.display = "flex"
+  }})
 
-    // on récupère la partie citation avec commentaire, à laquelle on retire les boutons pour l'envoyer en pièce jointe
-    let newBody = document.querySelector('#quoteBloc')
-    newBody.querySelector('#selectionCategory').style.display = "none"
-    newBody.querySelector('#commandLine').style.display = "none"
+/**
+ * EventListener sur le bouton d'envoi d'e-mail
+ */
+sendEmailBtn.addEventListener('click', function (){
 
-    // on fait une image qui va contenir la partie citation ci-dessus
-    let nouvelleImg = document.createElement("img");
-    
-    html2canvas(newBody).then(function (canvas) {
-      //document.body.appendChild(canvas)
-      nouvelleImg.src = canvas.toDataURL()
-      //console.log("image "+nouvelleImg)
+  statusSendEmail.innerHTML = "Sending e-mail ..."
 
-      //document.body.appendChild(nouvelleImg);
+  const receiver = inputEmail.value
+  console.log(receiver)
 
-      // Envoi de l'e-mail avec l'image en pièce jointe
-      Email.send({
-        SecureToken : "957f0f1a-faea-407a-a73d-2d5dffada68e",
-        To : receiver,
-        From : "EmojeedQuotes<contact@sylvainfoucault.com>",
-        Subject : "😀💬👋 You got an EmojeedQuote 📫🧾 from "+user,
-        Body : `You received a message from ${user}. <br/><br/><br/>
-         This e-mail is sent by the EmojeedQuote web application. <br/>
-         The e-mail is sent through ElasticEmail and my personal domain. <br/>
-         Person in charge : Sylvain Foucault, adress : 13 rue des Francs Muriers 80000 Amiens FRANCE, phone : +33 768766012 `,
-        Attachments : [
-          {
-            name : "emojeedQuote.png",
-            data : nouvelleImg.src
-          }
-        ]
-      }).then(
-        message => statusSendEmail.innerHTML = `E-mail status : ${message}`  
+  // on récupère la partie citation avec commentaire, à laquelle on retire les boutons pour l'envoyer en pièce jointe
+  let newBody = document.querySelector('#quoteBloc')
+  newBody.querySelector('#selectionCategory').style.display = "none"
+  newBody.querySelector('#commandLine').style.display = "none"
 
-      )
-      newBody.querySelector('#selectionCategory').style.display = "block"
-      newBody.querySelector('#commandLine').style.display = "flex"
-      statusSendEmail.innerHTML = `Sending e-mail ...`
-    })
-    //console.log(nouvelleImg)
+  // on fait une image qui va contenir la partie citation ci-dessus
+  let nouvelleImg = document.createElement("img");
+  
+  html2canvas(newBody).then(function (canvas) {
+    //document.body.appendChild(canvas)
+    nouvelleImg.src = canvas.toDataURL()
+    //console.log("image "+nouvelleImg)
 
-    /*
-    fetch("https://api.elasticemail.com/v4/emails/transactional", 
-      { headers: {
-                    'X-ElasticEmail-ApiKey':'282193FD1292CFF4CB31C4CC63D0A75CBB06594CFB60A887B27A6FD24F16601908B9F0992ABCA56CBBE49E59F783EF2E', 
-                    },
-            method: 'POST',        
-            data: {          
-              "Recipients":[  
-                {  
-                    "To":"sylvainfoucault1@gmail.com"
-                }
-              ],
-              "Content":{  
-                "From":"sylvainfoucault1@gmail.com",
-                "Subject":"Hello world",
-                "Body":"<html><head></head><body><p>Hello,</p>This is my first transactional email.</p></body></html>"            
-              },
-              "message":"contenu du message"
-              
-            }
-      }
+    //document.body.appendChild(nouvelleImg);
+
+    // Envoi de l'e-mail avec l'image en pièce jointe
+    Email.send({
+      SecureToken : "957f0f1a-faea-407a-a73d-2d5dffada68e",
+      To : receiver,
+      From : "EmojeedQuotes<contact@sylvainfoucault.com>",
+      Subject : "😀💬👋 You got an EmojeedQuote 📫🧾 from "+user,
+      Body : `You received a message from ${user}. <br/><br/><br/>
+        This e-mail is sent by the EmojeedQuote web application. <br/>
+        The e-mail is sent through ElasticEmail and my personal domain. <br/>
+        Person in charge : Sylvain Foucault, adress : 13 rue des Francs Muriers 80000 Amiens FRANCE, phone : +33 768766012 `,
+      Attachments : [
+        {
+          name : "emojeedQuote.png",
+          data : nouvelleImg.src
+        }
+      ]
+    }).then(
+      message => statusSendEmail.innerHTML = `E-mail status : ${message}`  
+
     )
-    .then(response => {
-      if(response.status === 200) return response.text()
-    })
-    .catch((error) => {
-      console.log(error)
-      document.querySelector("#quoteLoader").style.display = "none";
-      document.querySelector("#quoteContent").style.visibility = "visible";
-      document.querySelector("#quoteContent").innerHTML = error
-    })*/
-  }
-  else {
-    setPseudo()
-  }
-})
+    newBody.querySelector('#selectionCategory').style.display = "block"
+    newBody.querySelector('#commandLine').style.display = "flex"
+    
+  })
+  //console.log(nouvelleImg)
 
-//rechercheImageWikipedia()
+  /*
+  fetch("https://api.elasticemail.com/v4/emails/transactional", 
+    { headers: {
+                  'X-ElasticEmail-ApiKey':'282193FD1292CFF4CB31C4CC63D0A75CBB06594CFB60A887B27A6FD24F16601908B9F0992ABCA56CBBE49E59F783EF2E', 
+                  },
+          method: 'POST',        
+          data: {          
+            "Recipients":[  
+              {  
+                  "To":"sylvainfoucault1@gmail.com"
+              }
+            ],
+            "Content":{  
+              "From":"sylvainfoucault1@gmail.com",
+              "Subject":"Hello world",
+              "Body":"<html><head></head><body><p>Hello,</p>This is my first transactional email.</p></body></html>"            
+            },
+            "message":"contenu du message"
+            
+          }
+    }
+  )
+  .then(response => {
+    if(response.status === 200) return response.text()
+  })
+  .catch((error) => {
+    console.log(error)
+    document.querySelector("#quoteLoader").style.display = "none";
+    document.querySelector("#quoteContent").style.visibility = "visible";
+    document.querySelector("#quoteContent").innerHTML = error
+  })*/
+})
+    

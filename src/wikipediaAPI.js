@@ -13,8 +13,8 @@ let title = titles[0]
 
 export async function rechercheImageWikipedia(name = title){
 
-    console.log("rechercheImageWikipedia")
-    console.log(name)
+    //console.log("rechercheImageWikipedia")
+    //console.log(name)
 
     // premier appel : on recupère l'Id pour l'auteur ou le film (titles)
     const paramsPiece = `?action=query&format=json&titles=${name}`
@@ -63,7 +63,7 @@ export async function rechercheImageWikipedia(name = title){
     let infobox = htmlParsed.querySelector('.infobox_v3 .legend img')
     if(infobox === null) infobox = htmlParsed.querySelector('.infobox_v3 .images img')
     if(infobox === null) infobox = htmlParsed.querySelector('.infobox_v2 img')
-    console.log("infobox : "+infobox)            
+    //console.log("infobox : "+infobox)            
     //document.querySelector('#imageAuthor').innerHTML = infobox
     return infobox   
     

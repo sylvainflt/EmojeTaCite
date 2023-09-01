@@ -207,20 +207,22 @@ body {
         background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     }
     /* Modal Content */
-    .modal-content {
+    .modal-content-email, .modal-content-research {
         background-color: #fefefe;
         margin: auto;
         padding: 5rem;
         border: 1px solid #888;
         min-width: 30%;
         font-size: 2rem;
-        border-radius: 5px;
-
+        border-radius: 5px; 
+        min-height: 150px;       
+    }
+    .modal-content-research {
+        min-height: 440px;
         #paramResearchDiv {
             margin: 0 0 1rem 3rem;            
         }
     }
-    
     /* The Close Button */
     #closeModalSendEmail {
         color: #aaaaaa;

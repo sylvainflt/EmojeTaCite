@@ -80,7 +80,7 @@ export function recherchePersonnage(personnage){
 
 export function appelsWikiQuote(name = humoristes[Math.floor(Math.random()*humoristes.length)]){
 
-    console.log("appelsWikiQuote()")
+    //console.log("appelsWikiQuote()")
     //title = films[Math.floor(Math.random()*films.length)]
     title = name
     console.log(title)
@@ -143,12 +143,9 @@ export function appelsWikiQuote(name = humoristes[Math.floor(Math.random()*humor
                 // test ajout d'une image wikipedia en title
                 rechercheImageWikipedia(title).then((image)=>{
                     const imageWikipedia = image
-                    console.log("imageWikipedia "+imageWikipedia)
+                    //console.log("imageWikipedia "+imageWikipedia)
                     document.querySelector('#imageAuthor').innerHTML = imageWikipedia
-                })
-                            
-                
-                
+                })                                                            
 
                 document.querySelector("#quoteLoader").style.display = "none";
                 document.querySelector("#quoteContent").style.visibility = "visible";
