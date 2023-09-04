@@ -18,7 +18,7 @@ function createEmojiTD(element, key){
   
     tdEmojiForTable.addEventListener('click', function(){
   
-      console.log(`${element.character}`)
+      //console.log(`${element.character}`)
       
       const tdEmojeed = document.createElement("td")
       tdEmojeed.className = "clickableBigger"
@@ -41,7 +41,7 @@ function createEmojiTD(element, key){
  */
 export function getEmojiContentByGroup(offset = 0) {
 
-    console.log(offset)
+    //console.log(offset)
 
     let emojiGroupSelect= document.querySelector("#emojiGroupSelect").value
     if(emojiGroupSelect!== "") {

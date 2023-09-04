@@ -53,7 +53,7 @@ export async function rechercheImageWikipedia(name = title){
 
     const dataPage = await responsePage.json()
     //const parsedData = JSON.parse(data)
-    console.log(dataPage)     
+    //console.log(dataPage)     
 
     // on fait un algo qui parse et recupere les citations, les met dans un tableau puis un choisi une au pif
     const text = dataPage.parse.text['*']

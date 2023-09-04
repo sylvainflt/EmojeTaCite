@@ -9,10 +9,10 @@ export function getQuote() {
   }
   
   function generateColor(){
-    const hexArray = [8, 9, 'A', 'B', 'C', 'D', 'E', 'F'];
+    const hexArray = [6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F'];
     let code = "";
     for(let i=0; i<6; i++){
-     code += hexArray[Math.floor(Math.random()*8)];
+     code += hexArray[Math.floor(Math.random()*10)];
     }
     return `#${code}`
    }
@@ -20,6 +20,7 @@ export function getQuote() {
   function getQuoteBackground(){
     const color = generateColor()
     quoteBloc.style.backgroundColor = color
+    quoteLine.style.backgroundColor = "rgba(256,256,256,.2)"
     quoteBloc.style.boxShadow = `0 0 20px ${color}, inset 0 0 10px #fff`
     emojiBloc.style.boxShadow = `0 0 20px #f3f3f3, inset 0 0 10px #fff`
   }

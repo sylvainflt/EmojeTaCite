@@ -1,8 +1,8 @@
 import "./main.scss"
-import html2canvas from 'html2canvas'
 import { getQuote } from "./quoteFunctions.js" 
 import { recherchePersonnage } from "./wikiquoteAPI.js" 
 import { getEmojiContentByGroup, getNextEmojiGroup, getPrecEmojiGroup, emojiGroupSelectChange } from "./emojiFunctions.js"
+import { sendEmailSmtpJs, mailTo } from "./sendEmailFunctions.js"
 
 // une variable qui enregistre le nom de l'utilisateur
 let user = ""
@@ -15,30 +15,34 @@ quoteSearch.addEventListener('click', function (){
   resultResearch.style.display = "flex"  
 })
 researchBtn.addEventListener('click', function (){
-  console.log(inputResearch)
   recherchePersonnage(inputResearch.value)
 })
 function setPseudo(){
   // on demande le pseudo de l'utilisateur
-  const pseudo = prompt("Veuillez entrez votre nom.")
-  // on l'affiche dans la zone de commentaires emojis
-  authorCommentSpan.innerHTML = pseudo + " says : "
-  user = pseudo
+  //const pseudo = prompt("Veuillez entrez votre nom.")
+  entrerNom.style.display = "block"  
 }
-
-// on ajoute un listener au bouton de commentaires pour demander le pseudo
-commentBtn.addEventListener('click', function(){
-  setPseudo()
+entrerNomBtn.addEventListener('click', function (e){
+  e.preventDefault()
+  user = nomInput.value
+  entrerNom.style.display = "none"
+  // on l'affiche dans la zone de commentaires emojis
+  authorCommentSpan.innerHTML = user + " says : "
+  
   commentBtn.style.display = "none"
   commandLine.style.display = "flex"
   emojiBloc.style.display = "flex"
   // on refait les border radius suite à apparition du bloc Emojis
   quoteBloc.style.borderRadius = "100px 0 0 100px"
   // on teste la largeur de l'écran pour savoir si on est en mode mobile, si oui, alors on met le borderRadius à 100px 100px 0 0
-  console.log(screen.width)
   if(screen.width <= 800){
     quoteBloc.style.borderRadius = "100px 100px 0 0"
   }
+}) 
+// on ajoute un listener au bouton de commentaires pour demander le pseudo
+commentBtn.addEventListener('click', function(){
+  setPseudo()
+  
 })
 
 getEmojiContentByGroup()
@@ -54,7 +58,9 @@ closeModalSendEmail.onclick = function () {
   sendEmail.style.display = "none"
   statusSendEmail.innerHTML = ""
 }
-
+closeEntrerNomModal.onclick = function () {
+  entrerNom.style.display = "none"
+}
 closeModalResultResearch.onclick = function () {
   resultResearch.style.display = "none"
   //statusResults.innerHTML = ""
@@ -71,89 +77,20 @@ sendBtn.addEventListener('click', function (){
     
     // on ouvre la modal
     sendEmail.style.display = "flex"
-  }})
+  }
+})
 
 /**
  * EventListener sur le bouton d'envoi d'e-mail
  */
-sendEmailBtn.addEventListener('click', function (){
+sendEmailBtn.addEventListener('click', function (e){
+
+  e.preventDefault()
 
   statusSendEmail.innerHTML = "Sending e-mail ..."
 
-  const receiver = inputEmail.value
-  console.log(receiver)
-
-  // on récupère la partie citation avec commentaire, à laquelle on retire les boutons pour l'envoyer en pièce jointe
-  let newBody = document.querySelector('#quoteBloc')
-  newBody.querySelector('#selectionCategory').style.display = "none"
-  newBody.querySelector('#commandLine').style.display = "none"
-
-  // on fait une image qui va contenir la partie citation ci-dessus
-  let nouvelleImg = document.createElement("img");
+  //sendEmailSmtpJs(user)
+  mailTo()
   
-  html2canvas(newBody).then(function (canvas) {
-    //document.body.appendChild(canvas)
-    nouvelleImg.src = canvas.toDataURL()
-    //console.log("image "+nouvelleImg)
-
-    //document.body.appendChild(nouvelleImg);
-
-    // Envoi de l'e-mail avec l'image en pièce jointe
-    Email.send({
-      SecureToken : "957f0f1a-faea-407a-a73d-2d5dffada68e",
-      To : receiver,
-      From : "EmojeedQuotes<contact@sylvainfoucault.com>",
-      Subject : "😀💬👋 You got an EmojeedQuote 📫🧾 from "+user,
-      Body : `You received a message from ${user}. <br/><br/><br/>
-        This e-mail is sent by the EmojeedQuote web application. <br/>
-        The e-mail is sent through ElasticEmail and my personal domain. <br/>
-        Person in charge : Sylvain Foucault, adress : 13 rue des Francs Muriers 80000 Amiens FRANCE, phone : +33 768766012 `,
-      Attachments : [
-        {
-          name : "emojeedQuote.png",
-          data : nouvelleImg.src
-        }
-      ]
-    }).then(
-      message => statusSendEmail.innerHTML = `E-mail status : ${message}`  
-
-    )
-    newBody.querySelector('#selectionCategory').style.display = "block"
-    newBody.querySelector('#commandLine').style.display = "flex"
-    
-  })
-  //console.log(nouvelleImg)
-
-  /*
-  fetch("https://api.elasticemail.com/v4/emails/transactional", 
-    { headers: {
-                  'X-ElasticEmail-ApiKey':'282193FD1292CFF4CB31C4CC63D0A75CBB06594CFB60A887B27A6FD24F16601908B9F0992ABCA56CBBE49E59F783EF2E', 
-                  },
-          method: 'POST',        
-          data: {          
-            "Recipients":[  
-              {  
-                  "To":"sylvainfoucault1@gmail.com"
-              }
-            ],
-            "Content":{  
-              "From":"sylvainfoucault1@gmail.com",
-              "Subject":"Hello world",
-              "Body":"<html><head></head><body><p>Hello,</p>This is my first transactional email.</p></body></html>"            
-            },
-            "message":"contenu du message"
-            
-          }
-    }
-  )
-  .then(response => {
-    if(response.status === 200) return response.text()
-  })
-  .catch((error) => {
-    console.log(error)
-    document.querySelector("#quoteLoader").style.display = "none";
-    document.querySelector("#quoteContent").style.visibility = "visible";
-    document.querySelector("#quoteContent").innerHTML = error
-  })*/
 })
     

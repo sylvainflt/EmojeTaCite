@@ -49,7 +49,7 @@ export function recherchePersonnage(personnage){
     .then(data => { 
         
         const parsedData = JSON.parse(data)
-        console.log(parsedData)     
+        //console.log(parsedData)     
        
         //const name = parsedData[3][0].slice(30)
         //console.log(name)
@@ -69,7 +69,6 @@ export function recherchePersonnage(personnage){
                 resultResearch.style.display = "none"                
             })
         })
-        //appelsWikiQuote(name)
 
     })
     .catch((error) => {
@@ -83,7 +82,7 @@ export function appelsWikiQuote(name = films[Math.floor(Math.random()*films.leng
     //console.log("appelsWikiQuote()")
     //title = films[Math.floor(Math.random()*films.length)]
     title = name
-    console.log(title)
+    //console.log(title)
 
     // premier appel : on recupère l'Id pour l'auteur ou le film (titles)
     const paramsPiece = `?action=query&format=json&titles=${title}`
@@ -120,21 +119,23 @@ export function appelsWikiQuote(name = films[Math.floor(Math.random()*films.leng
             document.querySelector("#emojis").innerHTML = ""
 
             const parsedData = JSON.parse(data)
-            //console.log(parsedData)     
+            //console.log("parsedData "+parsedData)     
 
             // on fait un algo qui parse et recupere les citations, les met dans un tableau puis un choisi une au pif
             const text = parsedData.parse.text['*']
             //console.log(text)
             const htmlParsed = parse(text)  
             const quotes = htmlParsed.querySelectorAll('.citation')
-            //console.log(quotes)
+            //console.log("quotes "+quotes)
             const indRandQuote = Math.floor(Math.random()*quotes.length)
             //console.log(indRandQuote)
             const quote = quotes[indRandQuote] 
             //console.log(quote)
             //console.log(quote?.childNodes[0]?._rawText?.length)
             //if(quote?.childNodes[0]?._rawText?.length <= 180){
+              if(quote)  
                 document.querySelector("#quoteLine").innerHTML = quote
+              else  document.querySelector("#quoteLine").innerHTML = "Un problème technique est survenu ou bien il n'y a pas de citation pour l'instant."
                 //document.querySelector("#quoteAuthor").innerHTML = title
                 quoteAuthor.href = `https://fr.wikipedia.org/wiki/${title}`
                 quoteAuthor.innerHTML = title

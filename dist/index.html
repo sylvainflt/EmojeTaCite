@@ -68,10 +68,12 @@
         <!-- Modal content -->
         <div class="modal-content-email">
             <span id="closeModalSendEmail">&times;</span>
-            <div id="paramEmailDiv">
-                <input type="text" id="inputEmail">
-                <button id="sendEmailBtn">Envoyer E-mail</button>
-            </div>
+            <form id="sendEmailForm">
+                <div id="paramEmailDiv">
+                    <input type="text" id="inputEmail">
+                    <button id="sendEmailBtn">Envoyer E-mail</button>
+                </div>
+            </form>
             <p id="statusSendEmail"></p>
             
         </div>
@@ -86,6 +88,19 @@
             </div>
             <div id="statusResults"></div>
             
+        </div>
+    </div>
+    <div id="entrerNom">
+        <!-- Modal content -->
+        <div class="modal-content-nom">
+            <span id="closeEntrerNomModal">&times;</span>
+            <form id="entrerNomForm">
+                <div id="paramNomDiv">
+                    <label for="nomInput">Enter votre nom : </label>
+                    <input type="text" id="nomInput">
+                    <button id="entrerNomBtn">Valider</button>
+                </div>
+            </form>           
         </div>
     </div>
 </body>
