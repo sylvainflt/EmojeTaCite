@@ -126,3 +126,31 @@ function copyDivToClipboard(element) {
   document.execCommand('copy');
   window.getSelection().removeAllRanges();// to deselect
 }
+
+export function sendEmailEmailJS(user, quote){
+
+  console.log("sendEmailEmailJS(quote)")
+  console.log("user "+user)
+  console.log("quote "+quote)
+  console.log("quote.outerHTML "+quote.outerHTML)
+
+  const receiver = inputEmail.value
+  console.log(receiver)
+
+  var templateParams = {
+    from_name: user,
+    to_name: 'Pascal',
+    to_email: receiver,    
+    message: quote.outerHTML
+  };
+ 
+  console.log("templateParams "+templateParams)
+
+  emailjs.send('service_r80ouju', 'template_ymygahy', templateParams)
+    .then(function(response) {
+       console.log('SUCCESS!', response.status, response.text);
+    }, function(error) {
+       console.log('FAILED...', error);
+    });
+
+}

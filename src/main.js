@@ -1,8 +1,8 @@
 import "./main.scss"
 import { getQuote } from "./quoteFunctions.js" 
 import { recherchePersonnage } from "./wikiquoteAPI.js" 
-import { getEmojiContentByGroup, getNextEmojiGroup, getPrecEmojiGroup, emojiGroupSelectChange } from "./emojiFunctions.js"
-import { sendEmailSmtpJs, mailTo } from "./sendEmailFunctions.js"
+import { getAllEmojisFromGroup, emojiGroupSelectChange } from "./emojiFunctions.js"
+import { sendEmailEmailJS } from "./sendEmailFunctions.js"
 
 // une variable qui enregistre le nom de l'utilisateur
 let user = ""
@@ -14,7 +14,8 @@ quoteSearch.addEventListener('click', function (){
   //const search = prompt("Rechercher un personnage (commencez par le prénom) ou un film : ")
   resultResearch.style.display = "flex"  
 })
-researchBtn.addEventListener('click', function (){
+researchBtn.addEventListener('click', function (e){
+  e.preventDefault()
   recherchePersonnage(inputResearch.value)
 })
 function setPseudo(){
@@ -29,14 +30,18 @@ entrerNomBtn.addEventListener('click', function (e){
   // on l'affiche dans la zone de commentaires emojis
   authorCommentSpan.innerHTML = user + " says : "
   
-  commentBtn.style.display = "none"
-  commandLine.style.display = "flex"
-  emojiBloc.style.display = "flex"
-  // on refait les border radius suite à apparition du bloc Emojis
-  quoteBloc.style.borderRadius = "100px 0 0 100px"
-  // on teste la largeur de l'écran pour savoir si on est en mode mobile, si oui, alors on met le borderRadius à 100px 100px 0 0
-  if(screen.width <= 800){
-    quoteBloc.style.borderRadius = "100px 100px 0 0"
+  // seulement si pemiere fois :
+  const commentBtnStyle = window.getComputedStyle(commentBtn)
+  if(commentBtnStyle.display === "inline-block"){
+    commentBtn.style.display = "none"
+    commandLine.style.display = "flex"
+    emojiBloc.style.display = "flex"
+    // on refait les border radius suite à apparition du bloc Emojis
+    quoteBloc.style.borderRadius = "100px 0 0 100px"
+    // on teste la largeur de l'écran pour savoir si on est en mode mobile, si oui, alors on met le borderRadius à 100px 100px 0 0
+    if(screen.width <= 800){
+      quoteBloc.style.borderRadius = "100px 100px 0 0"
+    }
   }
 }) 
 // on ajoute un listener au bouton de commentaires pour demander le pseudo
@@ -45,10 +50,11 @@ commentBtn.addEventListener('click', function(){
   
 })
 
-getEmojiContentByGroup()
+// recherche des emojis (group smileys)
+getAllEmojisFromGroup()
 emojiGroupSelect.addEventListener('change', emojiGroupSelectChange)
-precEmojiGroupBtn.addEventListener('click', getPrecEmojiGroup)
-nextEmojiGroupBtn.addEventListener('click', getNextEmojiGroup)
+//precEmojiGroupBtn.addEventListener('click', getPrecEmojiGroup)
+//nextEmojiGroupBtn.addEventListener('click', getNextEmojiGroup)
 
 changePseudoBtn.addEventListener('click', function (){
   setPseudo()
@@ -90,7 +96,7 @@ sendEmailBtn.addEventListener('click', function (e){
   statusSendEmail.innerHTML = "Sending e-mail ..."
 
   //sendEmailSmtpJs(user)
-  mailTo()
-  
+  //mailTo()
+  sendEmailEmailJS(user, document.querySelector('#quote'))
 })
     

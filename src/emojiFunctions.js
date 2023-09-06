@@ -1,5 +1,7 @@
 // une variable qui stocke l'offset des emojiGroups pour pagination
 let emojiGroupsOffset = 0
+// témoin spécifiant qu'il reste des emojis à aller chercher
+let moreEmojisToAdd = true
 
 /**
  * fonction qui retourne un element TD pour l'emoji à afficher dans la table à gauche, et qui créé l'émoji 
@@ -9,14 +11,19 @@ let emojiGroupsOffset = 0
  * @returns un element TD
  */
 function createEmojiTD(element, key){
+
     const tdEmojiForTable = document.createElement("td")
-    tdEmojiForTable.className = "clickable"
-    tdEmojiForTable.id = `emoji${key}`
+    const divEmojiForTable = document.createElement("div")
+
+    divEmojiForTable.className = "clickable"
+    divEmojiForTable.id = `emoji${key}`
   
+    //console.table(element)    
+
     const character = document.createTextNode(element.character);
-    tdEmojiForTable.appendChild(character);
+    divEmojiForTable.appendChild(character);
   
-    tdEmojiForTable.addEventListener('click', function(){
+    divEmojiForTable.addEventListener('click', function(){
   
       //console.log(`${element.character}`)
       
@@ -33,82 +40,112 @@ function createEmojiTD(element, key){
       document.querySelector("#emojis").appendChild(tdEmojeed)
   
     })
+    tdEmojiForTable.appendChild(divEmojiForTable)
     return tdEmojiForTable
   }
   
 /**
- * fonction qui va chercher les emojis d'un groupe et les insère dans un tableau de 5*6
+ * Fonction qui va chercher les emojis d'un groupe en fonction de l'offset
+ * Cette fonction met à jour le témoin moreEmojisToAdd lorsqu'il n'y a plus d'éléments
+ * @param {*} offset 
+ * @returns un tableau de maximum 30 emojis
  */
-export function getEmojiContentByGroup(offset = 0) {
+export async function getEmojiContentByGroup(offset = 0) {
 
-    //console.log(offset)
+    //console.log("getEmojiContentByGroup ",emojiGroupsOffset)
 
     let emojiGroupSelect= document.querySelector("#emojiGroupSelect").value
     if(emojiGroupSelect!== "") {
-        emojiGroupSelect= "?group="+emojiGroupSelect+"&offset="+offset.toString()
+        emojiGroupSelect= "?group="+emojiGroupSelect+"&offset="+emojiGroupsOffset.toString()
     }
 
-    fetch("https://api.api-ninjas.com/v1/emoji"+emojiGroupSelect, { headers: {"X-Api-Key":"2Dst7djyWZH/iSyUenkgOw==rRyQbQZw2NyxaWI3"}})
-    .then(response => {
-        if(response.status === 200) return response.text()
-    })
-    .then(data => { 
-        if(data) { 
+    const response = await fetch("https://api.api-ninjas.com/v1/emoji"+emojiGroupSelect, { headers: {"X-Api-Key":"2Dst7djyWZH/iSyUenkgOw==rRyQbQZw2NyxaWI3"}})
+    
+    if(!response.ok) {
+        const message = `An error has occured: ${response.status}`;
+        throw new Error(message)
+    }
+    
+    const data = await response.json()
+    //console.log(data)
+    //console.log(data.length)
+    if(data && data.length > 0) { 
 
-        const tableData = JSON.parse(data) 
-        //console.log(tableData)
+        return data
 
-        emojiList.innerHTML = ""
-        const tbody = document.createElement("tbody")
-        const tr = document.createElement("tr")      
-        const tr2 = document.createElement("tr")
-        const tr3 = document.createElement("tr")
-        const tr4 = document.createElement("tr")
-        const tr5 = document.createElement("tr")
-        //const tr6 = document.createElement("tr")
+    } else if(data.length === 0){
+        //console.log("moreEmojisToAdd = false")
+        moreEmojisToAdd = false
+    }
+    return data    
 
-        tableData.forEach((element, key) => {
-            if(key < 6)          
-            tr.appendChild(createEmojiTD(element, key))                               
-            else if(key < 12)        
-            tr2.appendChild(createEmojiTD(element, key))        
-            else if(key < 18)
-            tr3.appendChild(createEmojiTD(element, key))
-            else if(key < 24)
-            tr4.appendChild(createEmojiTD(element, key))   
-            else 
-            tr5.appendChild(createEmojiTD(element, key))
-            
+}
+
+/**
+ * Cette fonction va rechercher tous les emojis d'un groupe (par paquet de 30, cf offset) 
+ * et va les insérer dans la table du emojiBloc.
+ */
+export async function getAllEmojisFromGroup(){
+    
+    //console.log("getAllEmojisFromGroup()")
+    //console.log(moreEmojisToAdd)
+
+    let dataEmojis = []
+
+    const tbody = document.createElement("tbody")
+    let tr = document.createElement("tr")
+
+    // sur une ligne de 8 places, position est l'indice courant
+    let position = 0
+
+    // paquet suivant (max 30 elements)
+    while (moreEmojisToAdd) {
+        
+        //console.log("while")
+
+        const moreData = await getEmojiContentByGroup()
+        //console.log("moreData "+moreData)
+        dataEmojis = [moreData]
+        emojiGroupsOffset += 30       
+
+        // on parcourt le paquet
+        dataEmojis.forEach((element, key1) => { 
+
+            //console.log("element "+element)
+
+            // pour chaque élément (emojiAvecInfos)
+            element.forEach((element2, key2) => {   
+
+                // si la ligne de 8 est complète 
+                // on passe à la ligne et on remet l'indice à 0
+                if(position === 8){                                                                            
+                    position = 0
+                    tbody.appendChild(tr)
+                    tr = document.createElement("tr")
+                }
+                // dans tous les cas, on ajoute l'élément
+                // et on met à jour l'indice
+                tr.appendChild(createEmojiTD(element2, key1+key2)) 
+                position++
+            })            
         })
-
-        tbody.appendChild(tr)
-        tbody.appendChild(tr2)
-        tbody.appendChild(tr3)
-        tbody.appendChild(tr4)
-        tbody.appendChild(tr5)
-        //tbody.appendChild(tr6)
+        // à la fin du paquet, on ajoute dans la page
+        tbody.appendChild(tr)        
         emojiList.appendChild(tbody)
 
-        }
-        else quote.innerHTML = ""
-    });
-
+    }
+    
 }
 
-export function getNextEmojiGroup() {
-    emojiGroupsOffset += 30
-    getEmojiContentByGroup(emojiGroupsOffset)
-    precEmojiGroupBtn.style.display = "inline"
-
-}
-export function getPrecEmojiGroup() {
-    emojiGroupsOffset -= 30
-    getEmojiContentByGroup(emojiGroupsOffset)
-
-    if(emojiGroupsOffset === 0) precEmojiGroupBtn.style.display = "none"
-}
+/**
+ * Cette fonction est appelée lors d'un changement de group d'emojis dans l'emojiBloc.
+ * Elle remet l'offset à 0, efface les emojis dans la table, remet le voyant plus d'emojis à afficher
+ * à vrai puis lance la fonction qui va récupérer les émojis du groupe et les mettre dans la table
+ */
 export function emojiGroupSelectChange() {
     emojiGroupsOffset = 0
-    precEmojiGroupBtn.style.display = "none"
-    getEmojiContentByGroup()
+    //getEmojiContentByGroup()
+    emojiList.innerHTML = ""
+    moreEmojisToAdd = true
+    getAllEmojisFromGroup()
 }

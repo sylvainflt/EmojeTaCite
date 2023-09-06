@@ -172,6 +172,14 @@ body {
                 border-radius: 0 0 100px 100px;   
             }
 
+            #emojiListDiv {
+                height: 432px;
+                overflow-y: scroll;
+                @media screen and (max-device-width: 800px) {
+                    height: 812px;
+                }
+            }
+
             #emojiList {
                 font-size: 2rem;
                 @media screen and (max-device-width: 800px) {
@@ -272,6 +280,11 @@ body {
         border-radius: 5px; 
         min-height: 150px;   
         border-radius: 20px;    
+    }
+    .modal-content-email {
+        #paramEmailDiv {
+            margin: 0 0 2rem 0;            
+        }
     }
     .modal-content-nom {
         width: 40%;
