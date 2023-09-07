@@ -1,4 +1,5 @@
 import html2canvas from 'html2canvas'
+import EmojeTaCiteLogo from './EmojeTaCiteReduit.png'
 
 export function sendEmailSmtpJs(user) {
 
@@ -146,11 +147,14 @@ export function sendEmailEmailJS(user){
   authorCommentSpan.style.fontSize = getComputedStyle(authorCommentSpan).fontSize
   emojis.style.fontSize = getComputedStyle(emojis).fontSize    
 
+  const logo = new Image()
+  logo.src = EmojeTaCiteLogo
+
   var templateParams = {
     from_name: user,
     to_name: receiverName,
     to_email: receiverEmail,   
-    titre1: `<img src="http://127.0.0.1:5500/src/EmojeTaCiteReduit.png">`,
+    titre1: logo.outerHTML,
     message: newBody.outerHTML
   };
 
