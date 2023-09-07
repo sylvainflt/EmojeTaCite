@@ -160,7 +160,7 @@ export function sendEmailEmailJS(user){
 
   console.log("templateParams "+templateParams)
 
-  emailjs.send('service_r80ouju', 'template_1mb0nrt', templateParams)
+  emailjs.send('service_r80ouju', 'template_fi4zpmr', templateParams)
     .then(function(response) {
       console.log('SUCCESS!', response.status, response.text);
       statusSendEmail.innerHTML = `E-mail envoyé avec succès !`
