@@ -97,6 +97,6 @@ sendEmailBtn.addEventListener('click', function (e){
 
   //sendEmailSmtpJs(user)
   //mailTo()
-  sendEmailEmailJS(user, document.querySelector('#quote'))
+  sendEmailEmailJS(user)
 })
     

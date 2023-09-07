@@ -35,7 +35,7 @@
             </div>   
             <div id="quoteLoader" class="center"></div>            
             <div id="quoteContent">  
-                                                         
+                <!-- <img src="../src/EmojeTaCiteReduit.png" id="emojeTaCiteLogo"> -->                       
                 <div class="quote" id="quote">
                     <div id="quoteLine"></div>
                     <div id="quoteAuthorDiv">- <a id="quoteAuthor"></a><div id="imageAuthor"></div></div>
@@ -75,7 +75,14 @@
             <span id="closeModalSendEmail">&times;</span>
             <form id="sendEmailForm">
                 <div id="paramEmailDiv">
-                    <input type="text" id="inputEmail">
+                    <div>
+                        <label for="inputNameReceiver">Nom : </label>
+                        <input type="text" id="inputNameReceiver">
+                    </div>
+                    <div>
+                        <label for="inputEmail">E-mail : </label>
+                        <input type="text" id="inputEmail">
+                    </div>
                     <button id="sendEmailBtn">Envoyer E-mail</button>
                 </div>
             </form>

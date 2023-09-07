@@ -127,30 +127,50 @@ function copyDivToClipboard(element) {
   window.getSelection().removeAllRanges();// to deselect
 }
 
-export function sendEmailEmailJS(user, quote){
+export function sendEmailEmailJS(user){  
 
-  console.log("sendEmailEmailJS(quote)")
-  console.log("user "+user)
-  console.log("quote "+quote)
-  console.log("quote.outerHTML "+quote.outerHTML)
+  const receiverEmail = inputEmail.value
+  const receiverName = inputNameReceiver.value
 
-  const receiver = inputEmail.value
-  console.log(receiver)
+  // on récupère la partie citation avec commentaire, à laquelle on retire les boutons pour l'envoyer en pièce jointe
+  let newBody = document.querySelector('.monSite')
+  newBody.querySelector('#selectionCategory').style.display = "none"
+  newBody.querySelector('#commandLine').style.display = "none"
+  newBody.querySelector('#imageAuthor').style.display = "none"
+  newBody.querySelector('#emojiBloc').style.display = "none"
+  newBody.querySelector('#quoteBloc').style.borderRadius = "0"
+
+  document.querySelector('h1').style.fontFamily = getComputedStyle(document.querySelector('h1')).fontFamily
+  quoteLine.style.fontSize = getComputedStyle(quoteLine).fontSize
+  quoteAuthor.style.fontSize = getComputedStyle(quoteAuthor).fontSize
+  authorCommentSpan.style.fontSize = getComputedStyle(authorCommentSpan).fontSize
+  emojis.style.fontSize = getComputedStyle(emojis).fontSize    
 
   var templateParams = {
     from_name: user,
-    to_name: 'Pascal',
-    to_email: receiver,    
-    message: quote.outerHTML
+    to_name: receiverName,
+    to_email: receiverEmail,   
+    titre1: `<img src="http://127.0.0.1:5500/src/EmojeTaCiteReduit.png">`,
+    message: newBody.outerHTML
   };
- 
+
   console.log("templateParams "+templateParams)
 
-  emailjs.send('service_r80ouju', 'template_ymygahy', templateParams)
+  emailjs.send('service_r80ouju', 'template_1mb0nrt', templateParams)
     .then(function(response) {
-       console.log('SUCCESS!', response.status, response.text);
+      console.log('SUCCESS!', response.status, response.text);
+      statusSendEmail.innerHTML = `E-mail envoyé avec succès !`
     }, function(error) {
-       console.log('FAILED...', error);
+      console.log('FAILED...', error);
+      statusSendEmail.innerHTML = `E-mail non envoyé, un problème technique s'est produit.`
     });
+
+  // on remet tous les éléments
+  newBody.querySelector('#selectionCategory').style.display = "block"
+  newBody.querySelector('#commandLine').style.display = "flex"
+  newBody.querySelector('#imageAuthor').style.display = "block"
+  newBody.querySelector('#emojiBloc').style.display = "block"
+  newBody.querySelector('#quoteBloc').style.borderRadius = "100px"
+  
 
 }
