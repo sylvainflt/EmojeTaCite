@@ -158,14 +158,18 @@ export function appelsWikiQuote(name = films[Math.floor(Math.random()*films.leng
         })
         .catch((error) => {
             console.log(error)
-        
+            document.querySelector("#quoteLoader").style.display = "none";
+            document.querySelector("#quoteContent").style.visibility = "visible";
+            document.querySelector("#quoteContent").innerHTML = "Erreur de chargement. Rééssayer plus tard. "+error
         })
 
 
     })
     .catch((error) => {
         console.log(error)
-    
+        document.querySelector("#quoteLoader").style.display = "none";
+        document.querySelector("#quoteContent").style.visibility = "visible";
+        document.querySelector("#quoteContent").innerHTML = "Erreur de chargement. Rééssayer plus tard. "+error
     })
 
     
