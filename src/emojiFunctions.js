@@ -131,7 +131,7 @@ export async function getAllEmojisFromGroup(){
         })
         // à la fin du paquet, on ajoute dans la page
         tbody.appendChild(tr)        
-        emojiList.appendChild(tbody)
+        document.querySelector('#emojiList').appendChild(tbody)
 
     }
     
@@ -144,8 +144,7 @@ export async function getAllEmojisFromGroup(){
  */
 export function emojiGroupSelectChange() {
     emojiGroupsOffset = 0
-    //getEmojiContentByGroup()
-    emojiList.innerHTML = ""
+    document.querySelector('#emojiList').innerHTML = ""
     moreEmojisToAdd = true
     getAllEmojisFromGroup()
 }

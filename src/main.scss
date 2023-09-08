@@ -195,6 +195,9 @@ body {
         .clickable {
             width: 3rem;
             height: 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
 
             @media screen and (max-device-width: 800px) {
                 width: 6rem;
@@ -253,7 +256,23 @@ body {
     @media screen and (max-device-width: 800px) {
         input, select, button {
             font-size: 2rem;
-        }               
+        }         
+        button:hover{
+            color: $color2;
+        }
+        button:active{
+            color: #fff;
+        }     
+        button:hover:before {
+            width: 0;
+            height: 0;
+        }
+        button:active:before {
+            width: 100%;
+            height: 100%;  
+            left: 0;
+            top: 0;          
+        }
     }
 
     #sendEmail, #entrerNom {

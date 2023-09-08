@@ -195,12 +195,18 @@ export function appelsWikiQuote(name = films[Math.floor(Math.random()*films.leng
         
                 error: function(xhr, result, status){
                     error("Error processing your query");
+                    document.querySelector("#quoteLoader").style.display = "none";
+                    document.querySelector("#quoteContent").style.visibility = "visible";
+                    document.querySelector("#quoteContent").innerHTML = "Erreur de chargement. Rééssayer plus tard."
                 }
             })
         },
 
         error: function(xhr, result, status){
             error("Error processing your query");
+            document.querySelector("#quoteLoader").style.display = "none";
+            document.querySelector("#quoteContent").style.visibility = "visible";
+            document.querySelector("#quoteContent").innerHTML = "Erreur de chargement. Rééssayer plus tard."
         }
     })
     

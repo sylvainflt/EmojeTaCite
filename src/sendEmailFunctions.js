@@ -1,5 +1,6 @@
 import html2canvas from 'html2canvas'
 import EmojeTaCiteLogo from './EmojeTaCiteReduit.png'
+import $ from "jquery";
 
 export function sendEmailSmtpJs(user) {
 
@@ -138,8 +139,17 @@ export function sendEmailEmailJS(user){
   newBody.querySelector('#selectionCategory').style.display = "none"
   newBody.querySelector('#commandLine').style.display = "none"
   newBody.querySelector('#imageAuthor').style.display = "none"
-  newBody.querySelector('#emojiBloc').style.display = "none"
+
+  // on enregistre l'emojiBloc dans un nouvel élément pour le supprimer pendant l'envoi puis le remettre
+  //newBody.querySelector('#emojiBloc').style.display = "none"
+  //console.log(newBody.querySelector('#emojiBloc'))  
+  //const emojiBlocSaved = document.createElement('div')
+  //emojiBlocSaved.appendChild(newBody.querySelector('#emojiBloc'))
+  console.log(newBody.querySelector('#emojiBloc'))
+  //newBody.querySelector('#emojiBloc').parentNode.removeChild(newBody.querySelector('#emojiBloc'))
+  let emojiBlocSaved = $('#emojiBloc').detach()
   newBody.querySelector('#quoteBloc').style.borderRadius = "0"
+
 
   document.querySelector('h1').style.fontFamily = getComputedStyle(document.querySelector('h1')).fontFamily
   quoteLine.style.fontSize = getComputedStyle(quoteLine).fontSize
@@ -173,8 +183,17 @@ export function sendEmailEmailJS(user){
   newBody.querySelector('#selectionCategory').style.display = "block"
   newBody.querySelector('#commandLine').style.display = "flex"
   newBody.querySelector('#imageAuthor').style.display = "block"
-  newBody.querySelector('#emojiBloc').style.display = "block"
-  newBody.querySelector('#quoteBloc').style.borderRadius = "100px"
+  
+  // on remet l'emojiBloc
+  //newBody.querySelector('#emojiBloc').style.display = "flex"
+  emojiBlocSaved.appendTo(newBody)
+  
+  // on refait les border radius suite à apparition du bloc Emojis
+  newBody.querySelector('#quoteBloc').style.borderRadius = "100px 0 0 100px"
+  // on teste la largeur de l'écran pour savoir si on est en mode mobile, si oui, alors on met le borderRadius à 100px 100px 0 0
+  if(screen.width <= 800){
+    newBody.querySelector('#quoteBloc').style.borderRadius = "100px 100px 0 0"
+  }
   
 
 }
