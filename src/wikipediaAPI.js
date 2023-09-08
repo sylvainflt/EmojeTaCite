@@ -1,4 +1,5 @@
 import { parse } from 'node-html-parser';
+import $ from "jquery";
 
 const language = "fr"
 
@@ -16,7 +17,73 @@ export async function rechercheImageWikipedia(name = title){
     //console.log("rechercheImageWikipedia")
     //console.log(name)
 
-    // premier appel : on recupère l'Id pour l'auteur ou le film (titles)
+    let infobox
+
+    await $.ajax({
+        url: `https://${language}.wikipedia.org/w/api.php`,
+        dataType: "jsonp",
+        data: {
+            format: "json",
+            action: "query",
+            redirects: "",
+            titles: name
+        },
+
+        success: function(result, status) {                        
+
+            const pages = result.query.pages
+                let pageId = -1;
+                for(let p in pages) {
+                    let page = pages[p];
+                    // api can return invalid recrods, these are marked as "missing"
+                    if(!("missing" in page)) {
+                        pageId = page.pageid;
+                        break;
+                    }
+                }
+                //console.log(pageId)
+                pieceId = pageId
+                            
+        },
+
+        error: function(xhr, result, status){
+            error("Error processing your query");
+        }
+    })
+    await $.ajax({
+        url: `https://${language}.wikipedia.org/w/api.php`,
+        dataType: "jsonp",
+        data: {
+            format: "json",
+            action: "parse",
+            redirects: "",
+            pageid: pieceId
+        },
+
+        success: function(result, status) {
+            
+            //console.log("recup de l'image "+result)   
+            
+            // on fait un algo qui parse et recupere les citations, les met dans un tableau puis un choisi une au pif
+            const text = result.parse.text['*']
+
+            //console.log(text)
+            const htmlParsed = parse(text)  
+            //console.log(htmlParsed)
+            infobox = htmlParsed.querySelector('.infobox_v3 .legend img')
+            if(infobox === null) infobox = htmlParsed.querySelector('.infobox_v3 .images img')
+            if(infobox === null) infobox = htmlParsed.querySelector('.infobox_v2 img')
+            //console.log("infobox : "+infobox)            
+            //document.querySelector('#imageAuthor').innerHTML = infobox
+            return infobox   
+        },
+
+        error: function(xhr, result, status){
+            error("Error processing your query");
+        }
+    })
+    return infobox
+    /* premier appel : on recupère l'Id pour l'auteur ou le film (titles)
     const paramsPiece = `?action=query&format=json&titles=${name}`
     const response = await fetch(`https://${language}.wikipedia.org/w/api.php${paramsPiece}`)
     
@@ -66,6 +133,6 @@ export async function rechercheImageWikipedia(name = title){
     //console.log("infobox : "+infobox)            
     //document.querySelector('#imageAuthor').innerHTML = infobox
     return infobox   
-    
+    */
 
 }
