@@ -116,6 +116,7 @@ export function appelsWikiQuote(name = films[Math.floor(Math.random()*films.leng
     //title = films[Math.floor(Math.random()*films.length)]
     title = name
     //console.log(title)
+    document.querySelector("#emojis").innerHTML = ""
 
     // premier appel : on recupère l'Id pour l'auteur ou le film (titles)
     $.ajax({
