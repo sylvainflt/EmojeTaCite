@@ -142,13 +142,18 @@ export function sendEmailEmailJS(user){
 
   // on enregistre l'emojiBloc dans un nouvel élément pour le supprimer pendant l'envoi puis le remettre    
   let emojiBlocSaved = $('#emojiBloc').detach()
-  newBody.querySelector('#quoteBloc').style.borderRadius = "0"
-
+  
+  quoteBloc.style.borderRadius = "50px"
+  const quoteBlocPadding = getComputedStyle(quoteBloc).padding
+  quoteBloc.style.padding = "1rem"
+  quoteLine.style.borderRadius = "10px"
+  quoteLine.style.padding = getComputedStyle(quoteLine).padding
 
   const quoteLineFontSize = getComputedStyle(quoteLine).fontSize
   quoteLine.style.fontSize = "1rem"
   const quoteAuthorFontSize = getComputedStyle(quoteAuthor).fontSize
   quoteAuthor.style.fontSize = "1rem"
+
 
   // pour ajouter un espace entre la citation et le commentaire
   const quoteAuthorDivPadding = getComputedStyle(quoteAuthorDiv).padding
@@ -162,6 +167,8 @@ export function sendEmailEmailJS(user){
 
   const logo = new Image()
   logo.src = EmojeTaCiteLogo
+  //logo.style.margin = "0 50%"
+  console.log(logo.outerHTML)
 
   var templateParams = {
     from_name: user,
@@ -206,5 +213,5 @@ export function sendEmailEmailJS(user){
   authorCommentSpan.style.fontSize = authorCommentSpanFontSize
   emojis.style.fontSize = emojisFontSize
   quoteAuthorDiv.style.padding = quoteAuthorDivPadding
-
+  quoteBloc.style.padding = quoteBlocPadding
 }
