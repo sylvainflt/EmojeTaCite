@@ -93,7 +93,7 @@ sendEmailBtn.addEventListener('click', function (e){
 
   e.preventDefault()
 
-  statusSendEmail.innerHTML = "Sending e-mail ..."
+  statusSendEmail.innerHTML = "Envoi de l'e-mail ..."
 
   //sendEmailSmtpJs(user)
   //mailTo()

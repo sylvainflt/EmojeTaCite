@@ -134,19 +134,13 @@ export function sendEmailEmailJS(user){
   const receiverEmail = inputEmail.value
   const receiverName = inputNameReceiver.value
 
-  // on récupère la partie citation avec commentaire, à laquelle on retire les boutons pour l'envoyer en pièce jointe
+  // on récupère la partie citation avec commentaire, à laquelle on retire les boutons pour l'envoyer 
   let newBody = document.querySelector('.monSite')
-  newBody.querySelector('#selectionCategory').style.display = "none"
-  newBody.querySelector('#commandLine').style.display = "none"
-  newBody.querySelector('#imageAuthor').style.display = "none"
+  let selectionCategorySaved = $('#selectionCategory').detach()
+  let commandLineSaved = $('#commandLine').detach()
+  let imageAuthorSaved = $('#imageAuthor').detach()
 
-  // on enregistre l'emojiBloc dans un nouvel élément pour le supprimer pendant l'envoi puis le remettre
-  //newBody.querySelector('#emojiBloc').style.display = "none"
-  //console.log(newBody.querySelector('#emojiBloc'))  
-  //const emojiBlocSaved = document.createElement('div')
-  //emojiBlocSaved.appendChild(newBody.querySelector('#emojiBloc'))
-  console.log(newBody.querySelector('#emojiBloc'))
-  //newBody.querySelector('#emojiBloc').parentNode.removeChild(newBody.querySelector('#emojiBloc'))
+  // on enregistre l'emojiBloc dans un nouvel élément pour le supprimer pendant l'envoi puis le remettre    
   let emojiBlocSaved = $('#emojiBloc').detach()
   newBody.querySelector('#quoteBloc').style.borderRadius = "0"
 
@@ -168,7 +162,7 @@ export function sendEmailEmailJS(user){
     message: newBody.outerHTML
   };
 
-  console.log("templateParams "+templateParams)
+  //console.log("templateParams "+templateParams)
 
   emailjs.send('service_r80ouju', 'template_fi4zpmr', templateParams)
     .then(function(response) {
@@ -179,14 +173,17 @@ export function sendEmailEmailJS(user){
       statusSendEmail.innerHTML = `E-mail non envoyé, un problème technique s'est produit.`
     });
 
-  // on remet tous les éléments
+  /* on remet tous les éléments
   newBody.querySelector('#selectionCategory').style.display = "block"
   newBody.querySelector('#commandLine').style.display = "flex"
-  newBody.querySelector('#imageAuthor').style.display = "block"
+  newBody.querySelector('#imageAuthor').style.display = "block"*/
   
   // on remet l'emojiBloc
   //newBody.querySelector('#emojiBloc').style.display = "flex"
   emojiBlocSaved.appendTo(newBody)
+  selectionCategorySaved.insertBefore(document.querySelector('#quoteLoader'))
+  commandLineSaved.insertAfter(document.querySelector('#quoteContent'))
+  imageAuthorSaved.insertAfter(document.querySelector('#quoteAuthor'))
   
   // on refait les border radius suite à apparition du bloc Emojis
   newBody.querySelector('#quoteBloc').style.borderRadius = "100px 0 0 100px"
