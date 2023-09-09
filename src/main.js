@@ -21,7 +21,7 @@ researchBtn.addEventListener('click', function (e){
 function setPseudo(){
   // on demande le pseudo de l'utilisateur
   //const pseudo = prompt("Veuillez entrez votre nom.")
-  entrerNom.style.display = "block"  
+  entrerNom.style.display = "flex"  
 }
 entrerNomBtn.addEventListener('click', function (e){
   e.preventDefault()

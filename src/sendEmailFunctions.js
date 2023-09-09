@@ -145,11 +145,20 @@ export function sendEmailEmailJS(user){
   newBody.querySelector('#quoteBloc').style.borderRadius = "0"
 
 
-  document.querySelector('h1').style.fontFamily = getComputedStyle(document.querySelector('h1')).fontFamily
-  quoteLine.style.fontSize = getComputedStyle(quoteLine).fontSize
-  quoteAuthor.style.fontSize = getComputedStyle(quoteAuthor).fontSize
-  authorCommentSpan.style.fontSize = getComputedStyle(authorCommentSpan).fontSize
-  emojis.style.fontSize = getComputedStyle(emojis).fontSize    
+  const quoteLineFontSize = getComputedStyle(quoteLine).fontSize
+  quoteLine.style.fontSize = "1rem"
+  const quoteAuthorFontSize = getComputedStyle(quoteAuthor).fontSize
+  quoteAuthor.style.fontSize = "1rem"
+
+  // pour ajouter un espace entre la citation et le commentaire
+  const quoteAuthorDivPadding = getComputedStyle(quoteAuthorDiv).padding
+  quoteAuthorDiv.style.padding = "1rem 0 2rem 2rem"
+
+  const authorCommentSpanFontSize = getComputedStyle(authorCommentSpan).fontSize
+  authorCommentSpan.style.fontSize = "1rem"
+  const emojisFontSize = getComputedStyle(emojis).fontSize 
+  emojis.style.fontSize = "1.5rem"   
+
 
   const logo = new Image()
   logo.src = EmojeTaCiteLogo
@@ -192,5 +201,10 @@ export function sendEmailEmailJS(user){
     newBody.querySelector('#quoteBloc').style.borderRadius = "100px 100px 0 0"
   }
   
+  quoteLine.style.fontSize = quoteLineFontSize
+  quoteAuthor.style.fontSize = quoteAuthorFontSize
+  authorCommentSpan.style.fontSize = authorCommentSpanFontSize
+  emojis.style.fontSize = emojisFontSize
+  quoteAuthorDiv.style.padding = quoteAuthorDivPadding
 
 }

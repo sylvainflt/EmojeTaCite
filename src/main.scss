@@ -304,14 +304,54 @@ body {
         #paramEmailDiv {
             margin: 0 0 2rem 0;            
         }
+        @media screen and (max-device-width: 800px) {
+            #sendEmailForm {
+                margin-top: 6rem;
+                #paramEmailDiv {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2rem;
+                    #sendEmailBtn {
+                        align-self: center;
+                    }
+                }
+            }                        
+        }
     }
     .modal-content-nom {
         width: 40%;
+        @media screen and (max-device-width: 800px) {
+            width: 50%;
+            #entrerNomForm {
+                margin-top: 3rem;
+                #paramNomDiv {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2rem;
+                    #entrerNomBtn {
+                        align-self: flex-start;
+                    }
+                }
+            }                        
+        }
     }
     .modal-content-research {
         min-height: 440px;
         #paramResearchDiv {
             margin: 0 0 1rem 3rem;            
+        }
+        @media screen and (max-device-width: 800px) {
+            #researchForm {
+                margin-top: 6rem;
+                #paramResearchDiv {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 2rem;
+                    #researchBtn {
+                        align-self: flex-start;
+                    }
+                }
+            }                        
         }
     }
     /* The Close Button */
