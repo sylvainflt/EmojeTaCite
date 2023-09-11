@@ -13,6 +13,11 @@
     })();
     </script>
     <script type="module" src="./main.min.js"></script>
+    <style>
+        body{
+            display: none;
+        }
+    </style>
 </head>
 <body>    
     <h1>EmojeTaCite</h1>
@@ -96,7 +101,7 @@
             <span id="closeModalResultResearch">&times;</span>
             <form id="researchForm">
                 <div id="paramResearchDiv">
-                    <label for="inputResearch">Rechercher célébrité ou film : </label>
+                    <label for="inputResearch" id="researchLabel">Rechercher célébrité ou film : </label>
                     <input type="text" id="inputResearch">
                     <button id="researchBtn">Rechercher</button>
                 </div>

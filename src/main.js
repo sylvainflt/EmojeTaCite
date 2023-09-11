@@ -98,4 +98,5 @@ sendEmailBtn.addEventListener('click', function (e){
   //mailTo()
   sendEmailEmailJS(user)
 })
-    
+
+document.body.style.display = "block"

@@ -338,7 +338,10 @@ body {
     .modal-content-research {
         min-height: 440px;
         #paramResearchDiv {
-            margin: 0 0 1rem 3rem;            
+            margin: 0 0 1rem 3rem;  
+            #researchLabel {
+                font-size: 1rem;
+            }          
         }
         @media screen and (max-device-width: 800px) {
             #researchForm {
@@ -350,6 +353,9 @@ body {
                     #researchBtn {
                         align-self: flex-start;
                     }
+                    #researchLabel {
+                        font-size: 2rem;
+                    } 
                 }
             }                        
         }
