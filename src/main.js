@@ -28,7 +28,7 @@ entrerNomBtn.addEventListener('click', function (e){
   user = nomInput.value
   entrerNom.style.display = "none"
   // on l'affiche dans la zone de commentaires emojis
-  authorCommentSpan.innerHTML = user + " says : "
+  authorCommentSpan.innerHTML = user + " dit : "
   
   // seulement si pemiere fois :
   const commentBtnStyle = window.getComputedStyle(commentBtn)
@@ -52,9 +52,8 @@ commentBtn.addEventListener('click', function(){
 
 // recherche des emojis (group smileys)
 getAllEmojisFromGroup()
+
 emojiGroupSelect.addEventListener('change', emojiGroupSelectChange)
-//precEmojiGroupBtn.addEventListener('click', getPrecEmojiGroup)
-//nextEmojiGroupBtn.addEventListener('click', getNextEmojiGroup)
 
 changePseudoBtn.addEventListener('click', function (){
   setPseudo()
